@@ -16,3 +16,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('kategori', 'KategoriController@index');
+$router->delete('kategori/{id}', 'KategoriController@destroy');
+$router->put('kategori/{id}', 'KategoriController@destroy');
