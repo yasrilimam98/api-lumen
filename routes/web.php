@@ -18,5 +18,11 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('kategori', 'KategoriController@index');
+
+$router->get('kategori/{id}', 'KategoriController@show');
+
+$router->post('kategori', 'KategoriController@create');
+
 $router->delete('kategori/{id}', 'KategoriController@destroy');
-$router->put('kategori/{id}', 'KategoriController@destroy');
+
+$router->put('kategori/{id}', 'KategoriController@update');
