@@ -15,6 +15,15 @@ class PelangganController extends Controller
     public function index()
     {
         //
+        $data = Pelanggan::all();
+        if (count($data) > 0) {
+            $res['message'] = "Success!";
+            $res['data'] = $data;
+            return response($res);
+        } else {
+            $res['message'] = "Empty!";
+            return response($res);
+        }
     }
 
     /**
@@ -44,9 +53,18 @@ class PelangganController extends Controller
      * @param  \App\Models\Pelanggan  $pelanggan
      * @return \Illuminate\Http\Response
      */
-    public function show(Pelanggan $pelanggan)
+    public function show($id)
     {
         //
+        $data = Pelanggan::where('idpelanggan', $id)->get();
+        if (count($data) > 0) {
+            $res['message'] = "Success!";
+            $res['data'] = $data;
+            return response($res);
+        } else {
+            $res['message'] = "Empty!";
+            return response($res);
+        }
     }
 
     /**

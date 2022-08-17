@@ -14,9 +14,15 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        // echo "<h1>Ini adalah kategori</h2>";
-        // tampilkan di postman
-        return response()->json("Ini adalah kategori");
+        $data = Kategori::all();
+        if (count($data) > 0) {
+            $res['message'] = "Success!";
+            $res['data'] = $data;
+            return response($res);
+        } else {
+            $res['message'] = "Empty!";
+            return response($res);
+        }
     }
 
     /**
@@ -47,10 +53,18 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show($id)
     {
         //
-        return response()->json("Menampilkan 1 data");
+        $data = Kategori::where('idkategori', $id)->get();
+        if (count($data) > 0) {
+            $res['message'] = "Success!";
+            $res['data'] = $data;
+            return response($res);
+        } else {
+            $res['message'] = "Empty!";
+            return response($res);
+        }
     }
 
     /**

@@ -19,13 +19,14 @@ $router->get('/', function () use ($router) {
 
 // add group route
 $router->group(['prefix' => 'api'], function () use ($router) {
+    // Kategori 
     $router->get('kategori', ['uses' => 'KategoriController@index']);
-
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
-
     $router->post('kategori', ['uses' => 'KategoriController@create']);
-
     $router->delete('kategori/{id}', ['uses' => 'KategoriController@destroy']);
-
     $router->put('kategori/{id}', ['uses' => 'KategoriController@update']);
+
+    // Pelanggan
+    $router->get('pelanggan', ['uses' => 'PelangganController@index']);
+    $router->get('pelanggan/{id}', ['uses' => 'PelangganController@show']);
 });
