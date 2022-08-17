@@ -32,8 +32,28 @@ class KategoriController extends Controller
      */
     public function create(Request $request)
     {
-        //
-        return response()->json($request);
+        Kategori::create($request->all());
+        // versi pakai array
+        // if ($request) {
+        //     $res = [
+        //         'message' => 'Success!',
+        //         'data' => $request->all()
+        //     ];
+        //     return response($res, 200);
+        // } else {
+        //     $res = [
+        //         'message' => 'Failed!'
+        //     ];
+        //     return response($res, 500);
+        // }
+        // versi tanpa array
+        if ($request) {
+            $res = ['message' => 'Success!'];
+            return response($res, 200);
+        } else {
+            $res = ['message' => 'Failed!'];
+            return response($res, 500);
+        }
     }
 
     /**
