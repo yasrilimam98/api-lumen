@@ -119,8 +119,16 @@ class PelangganController extends Controller
      * @param  \App\Models\Pelanggan  $pelanggan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pelanggan $pelanggan)
+    public function destroy($id)
     {
         //
+        $data = Pelanggan::where('idpelanggan', $id)->delete();
+        if ($data) {
+            $res = ['message' => 'Berhasil dihapus!'];
+            return response($res, 200);
+        } else {
+            $res = ['message' => 'Gagal dihapus!'];
+            return response($res, 500);
+        }
     }
 }
