@@ -105,10 +105,16 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request, $id)
     {
-        //
-        return response()->json("ini update");
+        Kategori::where('idkategori', $id)->update($request->all());
+        if ($request) {
+            $res = ['message' => 'Success!'];
+            return response($res, 200);
+        } else {
+            $res = ['message' => 'Failed!'];
+            return response($res, 500);
+        }
     }
 
     /**

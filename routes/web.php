@@ -31,4 +31,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('pelanggan/{id}', ['uses' => 'PelangganController@show']);
     $router->post('pelanggan', ['uses' => 'PelangganController@create']);
     $router->delete('pelanggan/{id}', ['uses' => 'PelangganController@destroy']);
+    $router->put('pelanggan/{id}', ['uses' => 'PelangganController@update']);
 });
