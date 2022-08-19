@@ -33,30 +33,33 @@ class PelangganController extends Controller
      */
     public function create(Request $request)
     {
-        Pelanggan::create($request->all());
-
-        // tanpa array
-        // if ($request) {
-        //     $res = ['message' => 'Success!'];
-        //     return response($res, 200);
-        // } else {
-        //     $res = ['message' => 'Failed!'];
-        //     return response($res, 500);
-        // }
-
-        // versi pakai array
-        if ($request) {
-            $res = [
-                'message' => 'Success!',
-                'data' => $request->all()
-            ];
+        $this->validate($request, [
+            'pelanggan' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required|numeric',
+        ]);
+        $data = Pelanggan::create($request->all());
+        if ($data) {
+            $res = ['message' => 'Success!'];
             return response($res, 200);
         } else {
-            $res = [
-                'message' => 'Failed!'
-            ];
+            $res = ['message' => 'Failed!'];
             return response($res, 500);
         }
+
+        // versi pakai array
+        // if ($request) {
+        //     $res = [
+        //         'message' => 'Success!',
+        //         'data' => $request->all()
+        //     ];
+        //     return response($res, 200);
+        // } else {
+        //     $res = [
+        //         'message' => 'Failed!'
+        //     ];
+        //     return response($res, 500);
+        // }
     }
 
     /**

@@ -32,7 +32,7 @@ class KategoriController extends Controller
      */
     public function create(Request $request)
     {
-        Kategori::create($request->all());
+        // Kategori::create($request->all());
         // versi pakai array
         // if ($request) {
         //     $res = [
@@ -46,8 +46,16 @@ class KategoriController extends Controller
         //     ];
         //     return response($res, 500);
         // }
+
+
         // versi tanpa array
-        if ($request) {
+        $this->validate($request, [
+            'kategori' => 'required',
+            'keterangan' => 'required',
+        ]);
+        $data = Kategori::create($request->all());
+
+        if ($data) {
             $res = ['message' => 'Success!'];
             return response($res, 200);
         } else {
