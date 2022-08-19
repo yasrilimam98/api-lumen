@@ -14,7 +14,15 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+        $data = Menu::all();
+        if (count($data) > 0) {
+            $res['message'] = "Success!";
+            $res['data'] = $data;
+            return response($res);
+        } else {
+            $res['message'] = "Empty!";
+            return response($res);
+        }
     }
 
     /**
@@ -24,10 +32,39 @@ class MenuController extends Controller
      */
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'idkategori' => 'required|numeric',
+            'menu' => 'required',
+            'gambar' => 'required',
+            'harga' => 'required|numeric',
+        ]);
+
         $gambar = $request->file('gambar')->getClientOriginalName();
         $request->file('gambar')->move('upload', $gambar);
 
-        return response()->json($gambar);
+        $data = [
+            'idkategori' => $request->input('idkategori'),
+            'menu' => $request->input('menu'),
+            'gambar' => url('upload/' . $gambar),
+            'harga' => $request->input('harga'),
+        ];
+
+        $menu = Menu::create($data);
+
+        if ($menu) {
+            $result = [
+                'status' => 201,
+                'pesan' => 'Success!',
+                'data' => $data
+            ];
+        } else {
+            $result = [
+                'status' => 500,
+                'pesan' => 'Failed!',
+                'data' => ''
+            ];
+        }
+        return response()->json($result);
     }
 
     /**
