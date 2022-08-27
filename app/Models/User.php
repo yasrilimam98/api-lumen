@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'email', 'level', 'api_token', 'status', 'relasi', 'password'
     ];
 
     /**
@@ -27,7 +27,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-    ];
+    protected $hidden = [];
 }
