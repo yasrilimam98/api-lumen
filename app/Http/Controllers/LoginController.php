@@ -4,12 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
-        echo "Login";
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $user = User::where('email', $email)->first();
+
+        if ($user->password === $password) {
+            $token = Str::random(60);
+
+            $user->update([
+                'api_token' => $token
+            ]);
+
+            return response()->json([
+                'message' => 'Login Berhasil!',
+                'data' => $user,
+                'token' => $token
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Login Gagal!',
+                'data' => ''
+            ]);
+        }
     }
 
     public function register(Request $request)
