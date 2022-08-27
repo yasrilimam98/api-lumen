@@ -17,10 +17,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// $router->get('login', ['uses' => 'LoginController@index']);
+$router->get('login', ['uses' => 'LoginController@index']);
 // add group route
-// $router->group(['prefix' => 'api', 'middleware' => 'user'], function () use ($router) {
-$router->group(['prefix' => 'api'], function () use ($router) {
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+
+    // $router->group(['prefix' => 'api'], function () use ($router) {
     // Kategori 
     $router->get('kategori', ['uses' => 'KategoriController@index']);
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
