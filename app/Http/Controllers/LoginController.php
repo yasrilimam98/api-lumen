@@ -44,22 +44,32 @@ class LoginController extends Controller
     {
 
         $this->validate($request, [
+            'nama' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'level' => 'required',
-            'status' => 'required',
-            'relasi' => 'required',
         ]);
 
+        $token = Str::random(60);
+        $password = app('hash')->make($request->input('password'));
+
         $data = [
+            'nama' => $request->input('nama'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'level' => 'pelanggan',
-            'api_token' => '123456',
-            'status' => '1',
-            'relasi' => $request->input('relasi')
+            'password' => $password,
+            'api_token' => $token
         ];
-        User::create($data);
-        return response()->json($data);
+
+        if (User::create($data)) {
+            return response()->json([
+                'message' => 'Register Berhasil!',
+                'data' => $data,
+                'token' => $token
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Register Gagal!',
+                'data' => 'kosong'
+            ]);
+        }
     }
 }

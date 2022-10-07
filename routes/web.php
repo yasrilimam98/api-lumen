@@ -20,25 +20,23 @@ $router->get('/', function () use ($router) {
 $router->post('api/login', ['uses' => 'LoginController@login']);
 $router->post('api/register', ['uses' => 'LoginController@register']);
 
-// add group route
-$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
 
-    // $router->group(['prefix' => 'api'], function () use ($router) {
-    // Kategori 
+$router->group(['prefix' => 'api'], function () use ($router) {
+    // pages 
     $router->get('kategori', ['uses' => 'KategoriController@index']);
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
     $router->post('kategori', ['uses' => 'KategoriController@create']);
     $router->delete('kategori/{id}', ['uses' => 'KategoriController@destroy']);
     $router->put('kategori/{id}', ['uses' => 'KategoriController@update']);
 
-    // Pelanggan
+    // tags
     $router->get('pelanggan', ['uses' => 'PelangganController@index']);
     $router->get('pelanggan/{id}', ['uses' => 'PelangganController@show']);
     $router->post('pelanggan', ['uses' => 'PelangganController@create']);
     $router->delete('pelanggan/{id}', ['uses' => 'PelangganController@destroy']);
     $router->put('pelanggan/{id}', ['uses' => 'PelangganController@update']);
 
-    // Menu
+    // current
     $router->get('menu', ['uses' => 'MenuController@index']);
     $router->get('menu/{id}', ['uses' => 'MenuController@show']);
     $router->post('menu', ['uses' => 'MenuController@create']);
